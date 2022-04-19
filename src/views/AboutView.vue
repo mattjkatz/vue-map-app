@@ -19,10 +19,24 @@ export default {
       center: [-87.92, 43.03], // starting position [lng, lat]
       zoom: 12, // starting zoom
     });
+
+    // create the popup
+    const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+      "West Allis, also known as 'Stallis, is home to the Krispy Kreme that I got to."
+    );
+    // create DOM element for the marker
+
+    const el = document.createElement("div");
+    el.id = "marker";
+
     const marker1 = new mapboxgl.Marker().setLngLat([-87.92, 43.03]).addTo(map);
 
     // Create a default Marker, colored black, rotated 45 degrees.
-    const marker2 = new mapboxgl.Marker({ color: "black", rotation: -30 }).setLngLat([-88.007, 43.016]).addTo(map);
+    const marker2 = new mapboxgl.Marker({ color: "black", rotation: -30 })
+      .setLngLat([-88.007, 43.016])
+      // .setLngLat(monument)
+      .setPopup(popup) // sets a popup on this marker
+      .addTo(map);
     console.log(map, marker1, marker2);
   },
 };
@@ -37,5 +51,17 @@ body {
 #map {
   width: 100vw;
   height: 66vh;
+}
+#marker {
+  background-image: url("https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg");
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.mapboxgl-popup {
+  max-width: 200px;
 }
 </style>
